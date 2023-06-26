@@ -30,7 +30,7 @@ public class MathUtilAdvancedTest {
                                {1, 1},
                                {2, 2},
                                {4, 24},
-                               {5, 120}
+                               {5, 1200}
                                };
         
         return testData;
