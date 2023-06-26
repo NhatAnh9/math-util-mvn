@@ -1,0 +1,33 @@
+name: Math Utility Project using Maven adn CI | © 2023 nhật.anh
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 8.0 - Cài JDK lên server vừa mượn ở Mỹ 
+      uses: actions/setup-java@v3
+      with:
+        java-version: '8.0'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with Maven - Mượn maven của server mỹ build app giùm
+      run: mvn -B package --file pom.xml
+
+    - name: Distribute jar-war file # Gửi file .jar .war đi đâu, CD nhảy vào ...
+      run: mkdir staging && cp target/*.jar staging # tạo thư mục staging chứa file .jar .war sau khi build      
+     
+    - name: Make hyperlink to jar-war file # Tạo hyperlink để download build 
+      uses: actions/upload-artifact@v1
+      with:
+        name: moi-nha-tuyen-dung-xem-file-jar.zip # File .jar .war được tạo ở mỹ được nén vào .zip để download
+        path: staging
+
